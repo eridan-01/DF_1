@@ -16,6 +16,7 @@ djangorestframework-simplejwt = "^5.3.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.3"
 black = "^24.8.0"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "^8.0.0"}
 
 
 [build-system]
