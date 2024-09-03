@@ -13,7 +13,7 @@ from users.views import UserCreateAPIView, UserListAPIView
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path("user_list/", UserListAPIView.as_view(), name="user_list"),
+    path("user_list/", UserListAPIView.as_view(), name="user-list"),
     # User registration
     path("register/", UserCreateAPIView.as_view(), name="register"),
     # JWT token
@@ -25,6 +25,6 @@ urlpatterns = [
     path(
         "token/refresh/",
         TokenRefreshView.as_view(permission_classes=(AllowAny,)),
-        name="token_refresh",
+        name="token-refresh",
     ),
 ]
