@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 from library.models import Author, Book, BookIssue
 
@@ -14,7 +16,16 @@ class BookSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+def validate(value):
+    if value == datetime.date.today():
+        raise serializers.ValidationError("Нельзя вернуть книгу в день выдачи")
+    return value
+
+
 class BookIssueSerializer(serializers.ModelSerializer):
+    borrow_date = serializers.DateField(validators=[validate])
+
     class Meta:
         model = BookIssue
         fields = '__all__'
+        read_only_fields = ['borrow_date', 'is_overdue']
