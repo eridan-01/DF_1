@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import datetime
 
 from users.models import NULLABLE, User
 
@@ -99,7 +100,7 @@ class BookIssue(models.Model):
     )
 
     borrow_date = models.DateField(
-        default=timezone.now,
+        default=datetime.date.today,
         verbose_name="Дата выдачи",
         help_text="Введите дату выдачи"
     )
@@ -128,3 +129,6 @@ class BookIssue(models.Model):
     class Meta:
         verbose_name = "Выдача книги"
         verbose_name_plural = "Выдачи книг"
+
+    def is_overdue(self):
+        return self.return_date is None and self.due_date < timezone.now().date()
