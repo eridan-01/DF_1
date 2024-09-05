@@ -39,6 +39,17 @@ class Author(models.Model):
 
 
 class Book(models.Model):
+    GENRE_CHOICES = [
+        ('fiction', 'Художественная литература'),
+        ('non_fiction', 'Научно-популярная литература'),
+        ('fantasy', 'Фэнтези'),
+        ('science_fiction', 'Научная фантастика'),
+        ('mystery', 'Детектив'),
+        ('biography', 'Биография'),
+        ('history', 'История'),
+        ('poetry', 'Поэзия'),
+    ]
+
     title = models.CharField(
         max_length=200,
         verbose_name="Название",
@@ -56,6 +67,7 @@ class Book(models.Model):
     genre = models.CharField(
         max_length=100,
         verbose_name="Жанр",
+        choices=GENRE_CHOICES,
         help_text="Введите жанр"
     )
 
