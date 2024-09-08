@@ -21,10 +21,7 @@ class User(AbstractUser):
         help_text="Введите вашу фамилию",
     )
 
-    email = models.EmailField(
-        unique=True,
-        verbose_name="Email"
-    )
+    email = models.EmailField(unique=True, verbose_name="Email")
 
     avatar = models.ImageField(
         upload_to="users/avatars/",
@@ -34,9 +31,7 @@ class User(AbstractUser):
     )
 
     phone_number = PhoneNumberField(
-        **NULLABLE,
-        verbose_name="Номер телефона",
-        help_text="Введите номер телефона"
+        **NULLABLE, verbose_name="Номер телефона", help_text="Введите номер телефона"
     )
 
     USERNAME_FIELD = "email"

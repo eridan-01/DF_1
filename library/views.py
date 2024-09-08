@@ -1,4 +1,10 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, RetrieveAPIView, DestroyAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+    UpdateAPIView,
+    RetrieveAPIView,
+    DestroyAPIView,
+)
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -11,13 +17,13 @@ from rest_framework import serializers
 
 class AuthorCreateAPIView(CreateAPIView):
     serializer_class = AuthorSerializer
-    permission_classes = (IsModer, )
+    permission_classes = (IsModer,)
 
 
 class AuthorListAPIView(ListAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
     pagination_class = CustomPagination
 
 
@@ -41,18 +47,18 @@ class AuthorDestroyAPIView(DestroyAPIView):
 
 class BookCreateAPIView(CreateAPIView):
     serializer_class = BookSerializer
-    permission_classes = (IsModer, )
+    permission_classes = (IsModer,)
 
 
 class BookListAPIView(ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
     pagination_class = CustomPagination
     filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['title', 'author__first_name', 'author__last_name', 'genre']
-    ordering_fields = ['published_date', 'title']
-    ordering = ['title']  # Сортировка по умолчанию
+    search_fields = ["title", "author__first_name", "author__last_name", "genre"]
+    ordering_fields = ["published_date", "title"]
+    ordering = ["title"]  # Сортировка по умолчанию
 
 
 class BookRetrieveAPIView(RetrieveAPIView):
@@ -75,10 +81,10 @@ class BookDestroyAPIView(DestroyAPIView):
 
 class BookIssueCreateAPIView(CreateAPIView):
     serializer_class = BookIssueSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
-        book = serializer.validated_data['book']
+        book = serializer.validated_data["book"]
         if book.available_copies <= 0:
             raise serializers.ValidationError("Эта книга сейчас недоступна для выдачи.")
 
@@ -91,7 +97,7 @@ class BookIssueCreateAPIView(CreateAPIView):
 class BookIssueListAPIView(ListAPIView):
     queryset = BookIssue.objects.all()
     serializer_class = BookIssueSerializer
-    permission_classes = (IsModer, )
+    permission_classes = (IsModer,)
     pagination_class = CustomPagination
 
 
@@ -117,5 +123,4 @@ class BookIssueUpdateAPIView(UpdateAPIView):
 class BookIssueDestroyAPIView(DestroyAPIView):
     queryset = BookIssue.objects.all()
     serializer_class = BookIssueSerializer
-    permission_classes = (IsModer, )
-
+    permission_classes = (IsModer,)
