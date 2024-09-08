@@ -17,6 +17,12 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 def validate(value):
+    """
+    Валидатор даты возврата книги.
+    Если дата возврата совпадает с датой выдачи, бросает ошибку.
+    :param value:
+    :return:
+    """
     if value == datetime.date.today():
         raise serializers.ValidationError("Нельзя вернуть книгу в день выдачи")
     return value
